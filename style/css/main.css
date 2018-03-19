@@ -1,0 +1,8 @@
+.imgs {
+  background: url(../img/root.png) center / contain no-repeat;
+  width: 200px;
+  transition: 0.5s ease all;
+}
+.imgs:hover{
+ filter: brightness(1.25);
+}
