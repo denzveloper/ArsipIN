@@ -8,7 +8,6 @@ class Dashboard extends CI_Controller {
         //load model admin
         $this->load->model('admin');
     }
-
 	public function index(){
 		if($this->admin->logged_id()){
 			$this->load->view("dashboard");
@@ -17,8 +16,8 @@ class Dashboard extends CI_Controller {
 			redirect("login");
 		}
 	}
-
 	public function logout(){
+		//destroy session
 		$this->session->sess_destroy();
 		redirect('login');
 	}

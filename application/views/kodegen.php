@@ -47,16 +47,38 @@
 		<div class="col-md-9">
 			<div class="panel panel-default">
 			  <div class="panel-heading">
-			    <h3 class="panel-title"><i class="fa fa-bullhorn"></i> Welcome Message</h3>
+			    <h3 class="panel-title"><i class="fa fa-qrcode"></i> Kode Verifikasi</h3>
 			  </div>
 			  <div class="panel-body">
-			    Selamat Datang <b><?php echo $this->session->userdata("user_nama"); ?></b> dihalaman Dashboard Aplikasi <b>ArsipIN</b>!
-			  </div>
+			  	<div class="row">
+                  <div class="col-lg-6">
+			    	<form method="POST" action="<?php echo base_url('index.php/generate') ?>">
+			        	<div class="form-group">
+                    		<div class="input-group">
+                     			<span class="input-group-addon"><i class="fa fa-qrcode"></i></span>
+	                     		<input type="text" class="form-control" name="jumlah" id="jumlah" placeholder="Banyak kode Generate" autocomplete="off">
+	                     		<span class="input-group-addon"><button style="background: transparent; border: 0;" name="btn-gen" id="btn-gen" type="submit">Generate</button></span>
+                    		</div>
+                    		<?php echo form_error('jumlah'); ?>
+                 		</div>
+                 	</form>
+                  </div>
+                  <div class="col-lg-5">
+                 	<table class="table table-striped table-hover">
+                 		<tr><th>List Kode Verifikasi</th></tr>
+                 	 	<?php foreach($posts as $post){ ?>
+                 		<tr>
+                 			<td><?php echo $post->kodever; ?></td>
+                 		</tr>
+                 		<?php } ?>
+                 	</table>
+                 	<p><?php //echo $links; ?></p>
+                 </div>
+			  	</div>
 			</div>
 		</div>
 	</div>
 </div>
-
 <script type="text/javascript" src="<?php echo base_url('/style/js/jquery.min.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/style/js/bootstrap.min.js');?>"></script>
 </body>

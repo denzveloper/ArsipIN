@@ -3,7 +3,7 @@
 	<title>Registrasi Baru - ArsipIN [BETA]</title>
     <link rel="shortcut icon" type="image/png" href="<?php echo base_url('style/img/root.png');?>"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/bootstrap.min.css');?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/styles.css');?>" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/styles.css');?>">
     <style type="text/css">
     .bgdif{
         background-color: #5294E2;
@@ -51,27 +51,27 @@
                 <h3 class="text-center login-title dpntxt"><img class="featurette-image img-responsive center-block" src="<?php echo base_url('/style/img/root.png');?>" width="100px" />Registrasi Akun ArsipIN</h3>
                 </br>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" autofocus>
+                    <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" autofocus autocomplete="off">
                     <?php echo form_error('username'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="realname" placeholder="Nama Anda" autofocus>
+                    <input type="text" class="form-user form eff" name="realname" placeholder="Nama Anda" autofocus autocomplete="off">
                     <?php echo form_error('realname'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="phone" class="form-user form eff" name="phone" placeholder="Nomor Telepon" autofocus>
+                    <input type="text" class="form-user form eff" name="phone" placeholder="Nomor Telepon" required autocomplete="off">
                     <?php echo form_error('phone'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="password" name="password" class="form-user form eff" placeholder="Kata Sandi">
+                    <input type="password" name="password" class="form-user form eff" placeholder="Kata Sandi" required autocomplete="off">
                     <?php echo form_error('password'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="kode" placeholder="Kode Verifikasi" autofocus>
+                    <input type="text" class="form-user form eff" name="kode" placeholder="Kode Verifikasi" required autocomplete="off">
                     <?php echo form_error('kode'); ?>
                 </div>
 
-                <button class="butn eff" name="btn-login" id="btn-login" type="submit">
+                <button class="butn eff" name="btn-newuser" id="btn-login" type="submit">
                     Daftar</button>
                 </label>
                 </form>

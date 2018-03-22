@@ -6,7 +6,6 @@ class Admin extends CI_Model{
     function logged_id(){
         return $this->session->userdata('user_name');
     }
-
 	//fungsi check login
     function check_login($table, $field1, $field2){
         $this->db->select('*');

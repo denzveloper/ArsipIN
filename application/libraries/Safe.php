@@ -2,12 +2,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Safe extends CI_Model{
-
+	//anti inject
 	function inject($string){
 		$result = addslashes(trim($string));
 		return $result;
 	}
-
+	//enkripsi data
 	function convert($string,$key){
 		$str=strval($string);
 		$ky=strrev($key);
@@ -21,5 +21,4 @@ class Safe extends CI_Model{
 		$j++;$j=$j==$kl?0:$j;}
 		return addslashes(trim($str));
 	}
-	
 }
