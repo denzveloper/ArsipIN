@@ -10,34 +10,44 @@ class Login extends CI_Controller {
         $this->load->model('admin');
         //load library enkripsi password
         $this->load->library('safe');
+        //useragent
+        $this->load->library('user_agent');
     }
 
-	public function index(){	
+	public function index(){
+        if ($this->agent->browser() == 'Internet Explorer'){
+            redirect("my404/blocked");
+        }
 		if($this->admin->logged_id()){
 			//jika memang session sudah terdaftar, maka dialihkan ke halaman dahsboard
 			redirect("dashboard");
 		}else{
 			//set form validation
-            $this->form_validation->set_rules('username', 'Nama Pengguna', 'required');
-            $this->form_validation->set_rules('password', 'Kata Sandi', 'required');
+            $this->form_validation->set_rules('username', 'Nama Pengguna', 'required|max_length[24]|alpha_numeric');
+            $this->form_validation->set_rules('password', 'Kata Sandi', 'required|max_length[150]');
             //set message form validation
             $this->form_validation->set_message('required', '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> {field}</b> harus diisi!</div></div>');
             //cek validasi
 			if ($this->form_validation->run() == TRUE){
 			//get data dari FORM
             $username = $this->safe->inject($this->input->post("username", TRUE));
-            $password = $this->safe->convert($this->input->post("password", TRUE),$username);
+            $password = $this->safe->convert($this->safe->inject($this->input->post("password", TRUE)),$username);
             //checking data via model
             $checking = $this->admin->check_login('tbl_users', array('username' => $username), array('password' => $password));
             //jika ditemukan, maka create session
 	            if ($checking != FALSE){
+                    $date = date("Y-m-d H:i:s");
+                    $this->admin->lastlog('tbl_users', array('username' => $username), array('lastlog' => $date));
     	            foreach ($checking as $apps){
         	            $session_data = array(
             	            'user_name' => $apps->username,
                 	        'user_pass' => $apps->password,
+                            'jabat' => $apps->jabatan,
+                            'who' =>  $apps->place,
                     	    'user_nama' => $apps->nama_user,
                             'user_phone' => $apps->phone,
-                            'level' => $apps->level
+                            'level' => $apps->level,
+                            'edit' =>  $apps->lastedit
                    	);
                     	//set session userdata
                     	$this->session->set_userdata($session_data);

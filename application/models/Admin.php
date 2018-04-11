@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+date_default_timezone_set("Asia/Jakarta");
 
 class Admin extends CI_Model{
 	//fungsi cek session
@@ -19,5 +20,10 @@ class Admin extends CI_Model{
         } else {
             return $query->result();
         }
+    }
+    function lastlog($tabel, $who, $field){
+        $this->db->where($who);
+        $this->db->update($tabel, $field);
+        return;
     }
 }

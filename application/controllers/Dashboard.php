@@ -10,14 +10,22 @@ class Dashboard extends CI_Controller {
     }
 	public function index(){
 		if($this->admin->logged_id()){
+			//jika login kesini
+			$this->load->view("head");
+			//load header html
 			$this->load->view("dashboard");
+			//load dahboard menu
 		}else{
 			//jika session belum terdaftar, maka redirect ke halaman login
 			redirect("login");
 		}
 	}
 	public function logout(){
-		//destroy session
+		//set value empty in session, destroy session and logout
+		$arraydata = array(
+            'user_name'=> '', 'user_pass'=>'', 'who'=>'', 'user_nama'=>'', 'user_phone'=>'', 'level'=>'', 'edit'=>''
+        );
+		$this->session->unset_userdata($arraydata);
 		$this->session->sess_destroy();
 		redirect('login');
 	}

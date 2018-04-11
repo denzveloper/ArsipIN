@@ -40,33 +40,39 @@
     }
     </style>
 </head>
-<body>
+<body onpaste="return false;" oncopy="return false;">
 <div class="cloud cloudAnimate"></div>
 <div class="container" style="position: relative;">
-    <div class="rowlogin">
+    <div id="shd" class="rowlogin">
+        <form class="form-signin" method="POST" action="<?php echo base_url('index.php/login') ?>">
+            <div class="loginer eff">
+            <img class="featurette-image img-responsive " src="<?php echo base_url('/style/img/index.png');?>" width="128px" />
+            <h3 class="login-title dpntxt">Log Masuk</h3>
+            <p>Log Masuk dengan Akun yang telah Anda buat.</p>
+            </br>
             <?php if(isset($error)) { echo $error; }; ?>
-                <form class="form-signin" method="POST" action="<?php echo base_url('index.php/login') ?>">
-                <div class="loginer eff">
-                <h3 class="text-center login-title dpntxt"><img class="featurette-image img-responsive center-block" src="<?php echo base_url('/style/img/index.png');?>" width="224px" />Log Masuk Akun ArsipIN</h3>
-                </br>
-                <div class="form-group">
-                    <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" autofocus required autocomplete="off">
-                    <?php echo form_error('username'); ?>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" class="form-user form eff" placeholder="Kata Sandi" required autocomplete="off">
-                    <?php echo form_error('password'); ?>
-                </div>
-
-                <button class="butn eff" name="btn-login" id="btn-login" type="submit">
-                    Masuk</button>
-                </label>
-                </form>
-                </br></br>
-                <a href="<?php echo base_url('index.php/register');?>" class="text-center crt">Buat Akun Baru</a>
+            <div class="form-group">
+                <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" required autocomplete="off">
+                <?php echo form_error('username'); ?>
             </div>
-            <div id="error" style="margin-top: 10px"></div>
-        </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-user form eff" placeholder="Kata Sandi" required autocomplete="off">
+                <?php echo form_error('password'); ?>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-8">
+                    <a href="<?php echo base_url('index.php/register');?>" class="text-center crt">Buat Akun Baru</a>
+                </div>
+                <div class="col-sm-3">
+                    <button class="butn eff" name="btn-login" id="btn-login" type="submit">Masuk</button>
+                </div>
+            </div>
+        </form>
+        </br></br>
+        
+    </div>
+    <div id="error" style="margin-top: 10px"></div>
     </div>
 </div>
 <script type="text/javascript" src="<?php echo base_url('/style/js/jquery.min.js');?>"></script>

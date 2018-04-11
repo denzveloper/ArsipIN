@@ -42,24 +42,37 @@
     }
     </style>
 </head>
-<body>
+<body onpaste="return false;" oncopy="return false;">
 <div class="container">
     <div class="rowlogin">
-            <?php if(isset($error)) { echo $error; }; ?>
-                <form class="form-signin" method="POST" action="<?php echo base_url('index.php/register') ?>">
-                <div class="loginer eff">
-                <h3 class="text-center login-title dpntxt"><img class="featurette-image img-responsive center-block" src="<?php echo base_url('/style/img/root.png');?>" width="100px" />Registrasi Akun ArsipIN</h3>
+        <form class="form-signin" method="POST" action="<?php echo base_url('index.php/register') ?>">
+            <div class="loginer eff">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="featurette-image img-responsive" src="<?php echo base_url('/style/img/root.png');?>" width="98px" />
+                    </div>
+                    <div class="col-md-7" style="padding: 9px 0">
+                        <h1>Registrasi</h1>
+                    </div>
+                </div>
+                <h3 class="login-title dpntxt">Akun ArsipIN</h3>
+                <p>Mendaftarkan Anda Akun Baru untuk ArsipIN</p>
                 </br>
+                <?php if(isset($error)) { echo $error; }; ?>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" autofocus autocomplete="off">
+                    <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" autocomplete="off">
                     <?php echo form_error('username'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="realname" placeholder="Nama Anda" autofocus autocomplete="off">
+                    <input type="text" class="form-user form eff" name="realname" placeholder="Nama Anda" autocomplete="off">
                     <?php echo form_error('realname'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="phone" placeholder="Nomor Telepon" required autocomplete="off">
+                    <input type="text" class="form-user form eff" name="jabat" placeholder="Jabatan Anda" autocomplete="off">
+                    <?php echo form_error('jabat'); ?>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-user form eff" name="phone" placeholder="Nomor Telepon" required autocomplete="off" onkeypress="return hanyaAngka(event)">
                     <?php echo form_error('phone'); ?>
                 </div>
                 <div class="form-group">
@@ -67,23 +80,29 @@
                     <?php echo form_error('password'); ?>
                 </div>
                 <div class="form-group">
+                    <input type="text" class="form-user form eff" name="whois" placeholder="Lembaga/Nama Desa" autocomplete="off">
+                    <?php echo form_error('whois'); ?>
+                </div>
+                <div class="form-group">
                     <input type="text" class="form-user form eff" name="kode" placeholder="Kode Verifikasi" required autocomplete="off">
                     <?php echo form_error('kode'); ?>
                 </div>
-
-                <button class="butn eff" name="btn-newuser" id="btn-login" type="submit">
-                    Daftar</button>
-                </label>
-                </form>
-                </br></br>
-                <a href="<?php echo base_url('index.php/login');?>" class="text-center crt">Sudah Memiliki Akun?</a>
+                <br>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <a href="<?php echo base_url('index.php/login');?>" class="text-center crt">Sudah Memiliki Akun?</a>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="butn eff" name="btn-newuser" id="btn-login" type="submit">Daftar</button>
+                    </div>
+                </div>
             </div>
-            <div id="error" style="margin-top: 10px"></div>
-        </div>
-    </div>
+        </form>
+    <div id="error" style="margin-top: 10px"></div>
 </div>
 <script type="text/javascript" src="<?php echo base_url('/style/css/js/jquery.min.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/style/css/js/bootstrap.min.js');?>"></script>
+<script type="text/javascript" src="<?php echo base_url('/style/js/passho.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/style/css/js/jquery.validate.min.js');?>"></script>
 </body>
 </html>

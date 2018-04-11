@@ -1,4 +1,5 @@
 <?php
+//Safe veri 0.2
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Safe extends CI_Model{

@@ -17,48 +17,68 @@ class Edituser extends CI_Controller {
 
 	public function index(){
 		if($this->admin->logged_id()){
+            $this->load->view("head");
+            $this->load->view('edituser');
+		}else{
+			//jika session belum terdaftar, maka redirect ke halaman login
+			redirect("login");
+		}
+	}
+
+    public function action(){
+        if($this->admin->logged_id()){
             //Jika Login maka ditampilkan
             //Button Hidup?
             //Ambil apakah Button Sudah Hidup
-            $something = $this->input->post('btn-update');
-			if(isset($something)){
+            $upd = $this->input->post('btn-update');
+            if(isset($upd)){
                 //Button hidup kesini
                 //Validasi Data
                 $this->form_validation->set_rules('realname', 'Nama Anda', 'required|max_length[150]|min_length[3]');
                 $this->form_validation->set_rules('phone', 'Phone', 'required|integer|max_length[18]|min_length[3]');
+                if($this->session->userdata("level") == 1){
+                    $this->form_validation->set_rules('jabat', 'Jabatan Anda', 'required|max_length[32]|min_length[3]');
+                    $this->form_validation->set_rules('whois', 'Nama Lembaga/Desa', 'required|max_length[18]|min_length[3]');
+                }
                 $this->form_validation->set_rules('password', 'Password', 'required|max_length[150]|min_length[3]');
                 //set message form validation
                 $this->form_validation->set_message('required', '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> {field}</b> harus diisi!</div></div>');
                 if($this->form_validation->run() == TRUE){
                     //Get Username
                     $username = $this->session->userdata('user_name');
-    				//get data dari FORM
-                	$realname = ucwords(strtolower($this->safe->inject($this->input->post("realname", TRUE))));
-                	$phone = $this->safe->inject($this->input->post("phone", TRUE));
-                	$password = $this->safe->convert($this->input->post("password", TRUE),$username);
-        	        //checking data via model
-            	    $checking = $this->userman->update_data('tbl_users', array('username' => $username), array('nama_user' => $realname, 'password' => $password, 'phone' => $phone));
+                    //get data dari FORM
+                    $realname = ucwords(strtolower($this->safe->inject($this->input->post("realname", TRUE))));
+                    $jabat = ucwords(strtolower($this->safe->inject($this->input->post("jabat", TRUE))));
+                    $whois = strtoupper($this->safe->inject($this->input->post("whois", TRUE)));
+                    $phone = $this->safe->inject($this->input->post("phone", TRUE));
+                    $password = $this->safe->convert($this->safe->inject($this->input->post("password", TRUE)),$username);
+                    //Date insert
+                    $date = date("Y-m-d H:i:s");
+                    //checking data via model
+                    $checking = $this->userman->update_data(array('username' => $username), array('nama_user' => $realname, 'jabatan'=>$jabat, 'place' => $whois, 'password' => $password, 'phone' => $phone, 'lastedit' => $date ));
                     //Mengecek apa Berjalan dengan mulus
-    		        if ($checking != FALSE){
-                            //Perintah OK
-    		        		$this->session->sess_destroy();
-    	    	            $data['error'] = '<div class="alert alert-success" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> Sukses</b> User telah diperbarui!<br><i>Silahkan Login Kembali</i></div></div>';
-                			$this->load->view('login', $data);
-                	}else{
-                        //Perintah ERR
-                		$data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Data Tidak dapat diubah!</div></div>';
-                		$this->load->view('edituser', $data);
-    				}
+                    if ($checking != FALSE){
+                        //Perintah OK
+                        $this->session->sess_destroy();
+                        $data['error'] = '<div class="alert alert-success" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> Sukses</b> User telah diperbarui!<br><i>Silahkan Login Kembali</i></div></div>';
+                        $this->load->view('login', $data);
+                    }else{
+                        $data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Data Tidak dapat diubah!</div></div>';
+                        $this->load->view("head");
+                        $this->load->view('edituser', $data);
+                    }
                 }else{
-                $data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Gagal Memperbarui!</div></div>';
-                $this->load->view('edituser');
+                    $data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Gagal Memperbarui!</div></div>';
+                    $this->load->view("head");
+                    $this->load->view('edituser', $data);
                 }
             }else{
-                $this->load->view('edituser');
-                }
-		}else{
-			//jika session belum terdaftar, maka redirect ke halaman login
-			redirect("login");
-		}
-	}
+                //Jika bukan perintah keduanya maka tampil ini saja
+                redirect("edituser");
+            }
+        }else{
+            //jika session belum terdaftar, maka redirect ke halaman login
+            redirect("login");
+        }
+    }
 }
