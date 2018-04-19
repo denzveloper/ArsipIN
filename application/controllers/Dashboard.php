@@ -21,12 +21,8 @@ class Dashboard extends CI_Controller {
 		}
 	}
 	public function logout(){
-		//set value empty in session, destroy session and logout
-		$arraydata = array(
-            'user_name'=> '', 'user_pass'=>'', 'who'=>'', 'user_nama'=>'', 'user_phone'=>'', 'level'=>'', 'edit'=>''
-        );
-		$this->session->unset_userdata($arraydata);
-		$this->session->sess_destroy();
+		//call logout function
+		$this->admin->logout();
 		redirect('login');
 	}
 }

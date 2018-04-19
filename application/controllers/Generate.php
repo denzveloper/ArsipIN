@@ -22,12 +22,17 @@ class Generate extends CI_Controller {
 
 				$something = $this->input->post('btn-gen');
 				if(isset($something)){
-					$this->form_validation->set_rules('jumlah', 'Banyaknya Kode', 'required|is_natural_no_zero|greater_than[0]|less_than[16]');
-					$this->form_validation->set_message('required', '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> {field}</b> harus diisi!</div></div>');
+					$this->form_validation->set_rules('jumlah', 'Banyaknya Kode', 'required|is_natural_no_zero|greater_than[0]|less_than[17]');
+					$this->form_validation->set_message('required', '<div class="alert alert-warning" style="margin-top: 3px"><div class="header"><b><i class="fas fa-exclamation-triangle"></i> {field}</b> harus diisi!</div></div>');
 					if ($this->form_validation->run() == TRUE) {
 						//Jadi gak generate disini.
 						$jumlah = $this->input->post("jumlah", TRUE);
-						$checking = $this->kodegen->generate('tbl_kode', $jumlah);
+						$checking = $this->kodegen->generate($jumlah);
+							if ($checking != FALSE) {
+								$data['error'] = '<div class="alert alert-success" style="margin-top: 3px"><div class="header"><b><i class="fa fa-check-circle"></i> Sukses</b> Kode telah ditambah!<br><i>Silahkan muat ulang halaman</i></div></div>';
+							}else{
+								$data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Terjadi Kegagalan Proses!</div></div>';
+							}
 					}else{
 						//jika gagal kesini
 						$data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Terjadi Kegagalan Proses!</div></div>';

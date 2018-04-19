@@ -29,7 +29,7 @@ class Register extends CI_Controller {
 	        $this->form_validation->set_rules('kode', 'Kode Verifikasi', 'required|max_length[7]|min_length[7]');
 
 	        //set message form validation
-	        $this->form_validation->set_message('required', '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> {field}</b> harus diisi!</div></div>');
+	        $this->form_validation->set_message('required', '<div class="alert alert-warning" style="margin-top: 3px"><div class="header"><b><i class="fas fa-exclamation-triangle"></i> {field}</b> harus diisi!</div></div>');
 
 	        //cek validasi
 			if ($this->form_validation->run() == TRUE) {
@@ -53,12 +53,12 @@ class Register extends CI_Controller {
 	            //jika tidak bentrok usernya maka lanjut
 	            if ($checking0 == FALSE && $checking1 == FALSE) {
 	            	if($kodcek != FALSE) {
-		            	$buatdata = $this->regist->create_user('tbl_users', array('username' => $username, 'nama_user' => $realname, 'jabatan'=>$jabat, 'place'=> $whois, 'password' => $password, 'phone' => $phone, 'level' => 1, 'acccreate' => $date, 'lastedit' => $date));
+		            	$buatdata = $this->regist->create_user(array('username' => $username, 'nama_user' => $realname, 'jabatan'=>$jabat, 'place'=> $whois, 'password' => $password, 'phone' => $phone, 'level' => 1, 'acccreate' => $date, 'lastedit' => $date));
 		            	//jika buat data berhasil ke laman login
 		            	if ($buatdata == TRUE){
-		            		$this->regist->delete_num('tbl_kode',  $kode);
+		            		$this->regist->delete_num($kode);
 		                	$data['error'] = '<div class="alert alert-info" style="margin-top: 3px">
-		                	<div class="header"><b><i class="fa fa-exclamation-circle"></i> DONE</b> Registrasi pengguna berhasil!</br><i>Silahkan Anda Login..</i></div></div>';
+		                	<div class="header"><b><i class="fa fa-check-circle"></i> SELESAI!</b> Registrasi pengguna berhasil!</br><i>Silahkan Anda Log Masuk Sistem..</i></div></div>';
 		            		$this->load->view('login', $data);
 		                }
 		                else{

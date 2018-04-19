@@ -33,11 +33,11 @@ class Login extends CI_Controller {
             $username = $this->safe->inject($this->input->post("username", TRUE));
             $password = $this->safe->convert($this->safe->inject($this->input->post("password", TRUE)),$username);
             //checking data via model
-            $checking = $this->admin->check_login('tbl_users', array('username' => $username), array('password' => $password));
+            $checking = $this->admin->check_login(array('username' => $username), array('password' => $password));
             //jika ditemukan, maka create session
 	            if ($checking != FALSE){
                     $date = date("Y-m-d H:i:s");
-                    $this->admin->lastlog('tbl_users', array('username' => $username), array('lastlog' => $date));
+                    $this->admin->lastlog(array('username' => $username, 'password' => $password), array('lastlog' => $date));
     	            foreach ($checking as $apps){
         	            $session_data = array(
             	            'user_name' => $apps->username,
