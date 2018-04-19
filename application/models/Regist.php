@@ -1,8 +1,9 @@
 <?php
-//Regist versi 0.3
+//Regist versi 0.4
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Regist extends CI_Model{
+    
 	//fungsi pengecekan untuk register
     function checking($tabel, $field){
         $this->db->select('*');
@@ -17,8 +18,8 @@ class Regist extends CI_Model{
         }
     }
     //Membuat Pengguna
-    function create_user($tabel, $data){
-        $cek = $this->db->insert($tabel, $data);
+    function create_user($data){
+        $this->db->insert('tbl_users', $data);
         $query = $this->db->affected_rows();
         if ($query == 0) {
             return FALSE;
@@ -26,9 +27,11 @@ class Regist extends CI_Model{
             return $query;
         }
     }
+
     //Menghapus Kode Verifikasi
-    function delete_num($table, $field){
+    function delete_num($field){
         $this->db->where('kodever',$field);
-        $this->db->delete($table);
+        $this->db->delete('tbl_kode');
     }
+    
 }

@@ -1,9 +1,24 @@
 <?php
-//Userman versi 0.2
+//Userman versi 0.4
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Userman extends CI_Model{
-    //Ambil data
+
+    //Ambil user data by username
+    public function detailus($who){
+        $this->db->where('username',$who);
+        $query = $this->db->get("tbl_users");
+        $this->db->limit(1);
+        $data = array();
+        if($query !== FALSE && $query->num_rows() > 0){
+            foreach ($query->result() as $row) {
+            $data[] = $row;
+            }
+        }
+        return $data;
+    }
+
+    //Ambil semua data user level 1
     public function fetchdata(){
         $this->db->where('level',1);
         $query = $this->db->get("tbl_users");
@@ -16,6 +31,7 @@ class Userman extends CI_Model{
         }
         return $data;
     }
+
 	//fungsi untuk Update user data
     function update_data($who, $field){
         $this->db->where($who);
