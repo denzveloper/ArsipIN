@@ -3,6 +3,7 @@
 	<title>Registrasi Baru - ArsipIN [BETA]</title>
     <link rel="shortcut icon" type="image/png" href="<?php echo base_url('style/img/root.png');?>"/>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/bootstrap.min.css');?>">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/fontawesome-all.css');?>">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/styles.css');?>">
     <style type="text/css">
     .bgdif{

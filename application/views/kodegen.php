@@ -11,7 +11,7 @@
 	                     		<span class="input-group-addon"><button style="background: transparent; border: 0;" name="btn-gen" id="btn-gen" type="submit">Generate</button></span>
                     		</div>
                             <p><i>*Demi kenyamanan, Maksimal 16 Kode per request.</i></p>
-                    		<?php echo form_error('jumlah'); ?>
+                    		<?php if(isset($error)) { echo $error; }; ?>
                  		</div>
                  	</form>
                   </div>
@@ -26,7 +26,7 @@
                             <td width="1"><?php echo $i;?></td>
                      		<td><i><b><?php echo $post->kodever; ?></b></i></td>
                      	</tr>
-                     	<?php }}else{echo "<tr><td align='center'> <b><i>*NO CODE AVAIBLE*</i></b> </td></tr>";} ?>
+                     	<?php }}else{echo "<tr><td colspan='2' align='left'> <b><i>*NO CODE AVAIBLE*</i></b> </td></tr>";} ?>
                     </tbody>
                 </table>
                 <p><?php //echo $links; ?></p>
@@ -43,7 +43,8 @@
 <script type="text/javascript">
   $(document).ready( function () {
       $('#table_id').DataTable({searching: false, "aLengthMenu": [[5, 7, 10, 20, -1], [5, 7, 10, 20, "All"]],
-        "iDisplayLength": 5});
+        "iDisplayLength": 5,  "language": {"url": "<?php echo base_url('/style/datatables/DataTables-1.10.16/js/Indonesian.json');?>"}
+        });
   } );
 </script>
 </body>

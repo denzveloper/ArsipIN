@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
 
+<img width="256px" src="<?php echo base_url('/style/img/oops.gif');?>" title="ERROR">
+
 <h4>An uncaught Exception was encountered</h4>
 
 <p>Type: <?php echo get_class($exception); ?></p>

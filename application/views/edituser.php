@@ -3,49 +3,49 @@
               <div class="panel-body">
                 <p><b>Last Edited: </b><i><span title="TTTT-BB-HH JJ:MM:DD"><?php echo $this->session->userdata('edit')?></span></i></p>
                 <?php if(isset($error)) { echo $error; }; ?>
-			  	<form method="POST" action="<?php echo base_url('index.php/edituser/action') ?>">
+			  	<form method="POST" action="<?php echo base_url('index.php/edituser') ?>">
 			     <div class="form-group">
                     <div class="input-group">
                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                     <input type="text" class="form-control" name="username" placeholder="Nama Pengguna" autocomplete="off" value="<?php echo $this->session->userdata('user_name')?>" disabled>
-                     <?php echo form_error('username'); ?>
+                     <input type="text" class="form-control" name="username" placeholder="Nama Pengguna" autocomplete="off" value="<?php echo $this->session->userdata('user_name'); if($user_data != FALSE){foreach($user_data as $post){ ?>" disabled>
                     </div>
+                    <?php echo form_error('username'); ?>
                  </div>
                  <div class="form-group">
                     <div class="input-group">
                      <span class="input-group-addon"><i class="fa fa-font"></i></span>
-                     <input type="text" class="form-control" name="realname" placeholder="Nama Anda" autocomplete="off" value="<?php echo $this->session->userdata('user_nama')?>">
-                     <?php echo form_error('realname'); ?>
+                     <input type="text" class="form-control" name="realname" placeholder="Nama Anda" autocomplete="off" value="<?php echo $post->nama_user; ?>">
                     </div>
+                    <?php echo form_error('realname'); ?>
                  </div>
                  <?php if($this->session->userdata("level") == 1){?>
                  <div class="form-group">
                     <div class="input-group">
                      <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
-                     <input type="text" class="form-control" name="jabat" placeholder="Jabatan Anda" autocomplete="off" value="<?php echo $this->session->userdata('jabat')?>">
-                     <?php echo form_error('jabat'); ?>
+                     <input type="text" class="form-control" name="jabat" placeholder="Jabatan Anda" autocomplete="off" value="<?php echo $post->jabatan;?>">
                     </div>
+                    <?php echo form_error('jabat'); ?>
                  </div>
                  <div class="form-group">
                     <div class="input-group">
                      <span class="input-group-addon"><i class="fa fa-building"></i></span>
-                     <input type="text" class="form-control" name="whois" placeholder="Nama Lembaga/Desa" autocomplete="off" value="<?php echo $this->session->userdata('who')?>">
-                     <?php echo form_error('whois'); ?>
+                     <input type="text" class="form-control" name="whois" placeholder="Nama Lembaga/Desa" autocomplete="off" value="<?php echo $post->place; ?>">
                     </div>
+                    <?php echo form_error('whois'); ?>
                  </div>
                  <?php } ?>
                  <div class="form-group">
                     <div class="input-group">
-                     <span class="input-group-addon"><i class="fa fa-phone-square"></i></span><input type="text" class="form-control" name="phone" placeholder="Nomor Telepon" required autocomplete="off" value="<?php echo $this->session->userdata('user_phone')?>" onkeypress="return hanyaAngka(event)">
-                     <?php echo form_error('phone'); ?>
+                     <span class="input-group-addon"><i class="fa fa-phone-square"></i></span><input type="text" class="form-control" name="phone" placeholder="Nomor Telepon" required autocomplete="off" value="<?php echo $post->phone; ?>" onkeypress="return hanyaAngka(event)">
                     </div>
+                    <?php echo form_error('phone'); ?>
                  </div>
                  <div class="form-group">
                     <div class="input-group">
-                     <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span><input type="password" name="password" id="pwd" class="form-control" placeholder="Kata Sandi" required autocomplete="off" value="<?php echo $this->safe->convert($this->session->userdata('user_pass'),$this->session->userdata('user_name'))?>">
+                     <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span><input type="password" name="password" id="pwd" class="form-control" placeholder="Kata Sandi" required autocomplete="off" value="<?php echo $this->safe->convert($post->password,$this->session->userdata('user_name')); } }else{}?>">
                      <span class="input-group-addon" id="latar" title="Show Password" class="eff"><button id="show" type="button" style="background: transparent; border: 0;" class="eff"><i class="fa fa-eye"></i></button></span>
-                     <?php echo form_error('password'); ?>
                     </div>
+                    <?php echo form_error('password'); ?>
                  </div>
                  <div class="row">
                   <div class="col-lg-2">

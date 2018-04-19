@@ -57,6 +57,7 @@ p {
 </head>
 <body>
 	<div id="container">
+		<img width="256px" src="<?php echo base_url('/style/img/oops.gif');?>" title="ERROR">
 		<h1><?php echo $heading; ?></h1>
 		<?php echo $message; ?>
 	</div>

@@ -19,7 +19,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand imgs" href="<?php echo base_url('index.php/tentang'); ?>" id="showabout">ArsipIN</a>
+          <a class="navbar-brand imgs" href="<?php echo base_url('index.php/tentang'); ?>" id="showabout" style="cursor: help;">ArsipIN</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <div class="navbar-form navbar-right">
