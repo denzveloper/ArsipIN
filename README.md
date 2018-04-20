@@ -1,7 +1,7 @@
 # ArsipIN
-Aplikasi Pelaporan Arsip Dinas Perpustakaan.
+Aplikasi Pelaporan Arsip Dinas Perpustakaan Fof CodeIgniter 3.
 
-Build With: Bootstrap 3, CodeIgniter, Datatables, FontAwesome.
+Build With: Bootstrap 3, CodeIgniter(No Included), Datatables, FontAwesome.
 
 Made By: DENZVELOPER/DzEN, Cica Susanti(D3TI2A), Gheby N.(D3TI2A)
 
