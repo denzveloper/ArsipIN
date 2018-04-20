@@ -33,7 +33,7 @@
 	<body bgcolor='#333' style='text-align: center; font-family: Arial, sans-serif;'>
             <div class="help-note caution-note">
                 <p>
-                	<img width="256px" src="<?php echo base_url('/style/img/index.png');?>" title="ArsipIN"><br>
+                	<a href="https://github.com/denzveloper/ArsipIN" target="_blank"><img width="256px" src="<?php echo base_url('/style/img/index.png');?>" title="ArsipIN"></a><br>
             	    <span class="head">Tentang ArsipIN</span>
                         </p><p class="ok">ArsipIN(Aplikasi Arsip Indramayu) dibuat untuk Dinas Perpustakaan dan Kearsipan Indramayu.</p>
                         <p class="err">Developed by: TI-Polindra, D3TI2A:Kelompok 7(2018), DzEN(DENZVELOPER)</p>

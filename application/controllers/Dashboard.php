@@ -9,7 +9,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('admin');
     }
 	public function index(){
-		if($this->admin->logged_id()){
+		if($this->admin->chksess()){
 			//jika login kesini
 			$this->load->view("head");
 			//load header html

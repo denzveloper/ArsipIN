@@ -14,7 +14,7 @@ class Generate extends CI_Controller {
         $this->load->library('pagination');
     }
 	public function index(){
-		if($this->admin->logged_id()){
+		if($this->admin->chksess()){
 			//jika login maka bisa masuk
 			if($this->session->userdata("level") == 0){
 				//jika level user 0 kesini

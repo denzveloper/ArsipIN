@@ -14,7 +14,7 @@ class Uman extends CI_Controller {
         $this->load->library('pagination');
     }
     public function index(){
-        if($this->admin->logged_id()){
+        if($this->admin->chksess()){
             //if login user can visits
             if($this->session->userdata("level") == 0){
                 //if level user is 0 you can processed

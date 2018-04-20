@@ -18,12 +18,12 @@ date_default_timezone_set("Asia/Jakarta");
 class Admin extends CI_Model{
 
 	//fungsi cek session
-    function logged_id(){
+    function chksess(){
         return $this->session->userdata('user_name');
     }
 
-	//fungsi check login
-    function check_login($field1, $field2){
+	//fungsi check user login
+    function chklog($field1, $field2){
         $this->db->select('*');
         $this->db->from('tbl_users');
         $this->db->where($field1);

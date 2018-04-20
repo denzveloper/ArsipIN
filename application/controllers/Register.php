@@ -14,7 +14,7 @@ class Register extends CI_Controller {
         $this->load->library('safe');
     }
 	public function index(){
-		if($this->admin->logged_id()){
+		if($this->admin->chksess()){
 				//jika memang session sudah terdaftar, maka redirect ke halaman dahsboard
 				redirect("dashboard");
 		}else{

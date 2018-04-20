@@ -16,7 +16,7 @@ class Edituser extends CI_Controller {
     }
 
 	public function index(){
-		if($this->admin->logged_id()){
+		if($this->admin->chksess()){
             //get user details
             $data['user_data'] = $this->userman->detailus($this->session->userdata('user_name'));
             $upd = $this->input->post('btn-update');

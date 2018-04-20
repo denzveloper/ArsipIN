@@ -11,7 +11,7 @@ class Codes extends CI_Controller {
         $this->load->model('dataman');
     }
     public function index(){
-        if($this->admin->logged_id()){
+        if($this->admin->chksess()){
             //if login you can visits
             if($this->session->userdata("level") == 1){
                 //if level is 1 you can processed
@@ -27,7 +27,7 @@ class Codes extends CI_Controller {
     }
 
     public function action(){
-        if($this->admin->logged_id()){
+        if($this->admin->chksess()){
             //if login you can visits
             if($this->session->userdata("level") == 1){
                 $something = $this->input->post('btn-add');
