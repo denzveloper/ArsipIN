@@ -1,5 +1,5 @@
 <?php
-//kodegen versi 0.4
+//kodegen(Kode Generator) versi 0.4
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Kodegen extends CI_Model{

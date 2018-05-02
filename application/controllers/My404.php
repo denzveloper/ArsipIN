@@ -9,7 +9,7 @@ class My404 extends CI_Controller {
 	} 
 	public function index(){ 
 	    $this->output->set_status_header('404'); 
-	    $this->load->view('err404');//loading in custom error view
+	    $this->load->view('errors/err404');//loading in custom error view
  	}
 	public function blocked(){
 		//checking again when not using IE
@@ -17,6 +17,6 @@ class My404 extends CI_Controller {
         	redirect("login");
     	}
  		$this->output->set_status_header('404'); 
-    	$this->load->view('broden');
+    	$this->load->view('errors/broden');
 	}
 } 

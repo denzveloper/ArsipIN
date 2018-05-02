@@ -7,18 +7,18 @@ class Edituser extends CI_Controller {
         parent::__construct();
         //load library form validasi
         $this->load->library('form_validation');
-        //load model admin
-        $this->load->model('admin');
-        //load model admin
+        //load model usman
+        $this->load->model('usman');
+        //load model userman
         $this->load->model('userman');
         //load model safe
         $this->load->library('safe');
     }
 
 	public function index(){
-		if($this->admin->chksess()){
+		if($this->usman->chksess()){
             //get user details
-            $data['user_data'] = $this->userman->detailus($this->session->userdata('user_name'));
+            $data['user_data'] = $this->userman->detailus($this->session->userdata('uname'));
             $upd = $this->input->post('btn-update');
             if(isset($upd)){
                 //Button hidup kesini
@@ -34,7 +34,7 @@ class Edituser extends CI_Controller {
                 $this->form_validation->set_message('required', '<div class="alert alert-warning" style="margin-top: 3px"><div class="header"><b><i class="fas fa-exclamation-triangle"></i> {field}</b> harus diisi!</div></div>');
                 if($this->form_validation->run() == TRUE){
                     //Get Username
-                    $username = $this->session->userdata('user_name');
+                    $username = $this->session->userdata('uname');
                     //get data dari FORM
                     $realname = ucwords(strtolower($this->safe->inject($this->input->post("realname", TRUE))));
                     $jabat = ucwords(strtolower($this->safe->inject($this->input->post("jabat", TRUE))));
@@ -48,7 +48,7 @@ class Edituser extends CI_Controller {
                     //Mengecek apa Berjalan dengan mulus
                     if ($checking != FALSE){
                         //Perintah OK
-                        $this->admin->logout();
+                        $this->usman->logout();
                         $data['error'] = '<div class="alert alert-success" style="margin-top: 3px"><div class="header"><b><i class="fa fa-check-circle"></i> Sukses</b> User telah diperbarui!<br><i>Silahkan Login Kembali</i></div></div>';
                         $this->load->view('login', $data);
                     }else{

@@ -1,5 +1,5 @@
 <?php
-//Regist versi 0.4
+//Regist(Ragister Data) versi 0.4
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Regist extends CI_Model{

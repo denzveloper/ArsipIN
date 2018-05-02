@@ -1,13 +1,14 @@
 <?php
-//Userman versi 0.4
+//Userman(User Manager) versi 0.4
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Userman extends CI_Model{
 
     //Ambil user data by username
     public function detailus($who){
+        $this->db->from('tbl_users');
         $this->db->where('username',$who);
-        $query = $this->db->get("tbl_users");
+        $query = $this->db->get();
         $this->db->limit(1);
         $data = array();
         if($query !== FALSE && $query->num_rows() > 0){
@@ -20,9 +21,10 @@ class Userman extends CI_Model{
 
     //Ambil semua data user level 1
     public function fetchdata(){
+        $this->db->from('tbl_users');
         $this->db->where('level',1);
-        $query = $this->db->get("tbl_users");
         $this->db->order_by("acccreate", "DESC");
+        $query = $this->db->get();
         $data = array();
         if($query !== FALSE && $query->num_rows() > 0){
             foreach ($query->result() as $row) {

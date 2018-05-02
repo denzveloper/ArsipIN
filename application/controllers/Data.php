@@ -1,33 +1,68 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Codes extends CI_Controller {
+class Data extends CI_Controller {
 
     public function __construct(){
         parent::__construct();
-        //load model admin
-        $this->load->model('admin');
+        //load model usman
+        $this->load->model('usman');
         //load model dataman
-        $this->load->model('dataman');
+        $this->load->model('dataio');
+        //load library safe
+        $this->load->library('safe');
     }
     public function index(){
-        if($this->admin->chksess()){
+        if($this->usman->chksess()){
             //if login you can visits
             if($this->session->userdata("level") == 1){
-                //if level is 1 you can processed
+                //if level is 1 or Writer you are here
                 $this->load->view("head");
                 $this->load->view('datain');
-            }else{
+            }elseif ($this->session->userdata("level") == 0) {
+                //if level is 0 or ArsipAris you are here
+                $data['list'] = $this->dataio->getlistuser();
+                $data['new'] = $this->dataio->getnewdata();
+                $this->load->view("head");
+                $this->load->view('login/data/datashow',$data);
+            }
+            else{
                 //Jika Bukan Hak Akses
-                $this->load->view("denied");
+                $this->load->view("errors/denied");
             }
         }else{
+            //Not LoggedIn
+            redirect("login");
+        }
+    }
+
+    public function show(){
+        if ($this->usman->chksess()) {
+            if($this->session->userdata("level") == 0){
+                //get require data
+                $namae = $this->session->userdata('namaus');
+                $by = $this->safe->inject($this->safe->convert($this->input->get("usr", TRUE),$namae));
+                //$when = $this->safe->inject($this->safe->convert($this->input->get("dat", TRUE),$namae));
+                //$by = $this->safe->inject($this->input->get("usr", TRUE));
+                $when = $this->safe->inject($this->input->get("dat", TRUE));
+                $data['doc'] = $this->dataio->viewdata(array('username' => $by, 'date' => $when));
+                if ($data['doc']!=FALSE) {
+                    $this->dataio->makejr(array('username' => $by, 'date' => $when));
+                }
+                $this->load->view("head");
+                $this->load->view('login/data/show',$data);
+            }else{
+                //Jika Bukan Hak Akses
+                $this->load->view("errors/denied");
+            }
+        }else{
+            //Not LoggedIn
             redirect("login");
         }
     }
 
     public function action(){
-        if($this->admin->chksess()){
+        if($this->usman->chksess()){
             //if login you can visits
             if($this->session->userdata("level") == 1){
                 $something = $this->input->post('btn-add');
@@ -117,7 +152,7 @@ class Codes extends CI_Controller {
                 }
             }else{
                 //Jika Bukan Hak Akses
-                $this->load->view("denied");
+                $this->load->view("errors/denied");
             }
         }else{
             redirect("login");

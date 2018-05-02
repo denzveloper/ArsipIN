@@ -6,8 +6,8 @@ class Login extends CI_Controller {
         parent::__construct();
         //load library form validasi
         $this->load->library('form_validation');
-        //load model admin
-        $this->load->model('admin');
+        //load model usman
+        $this->load->model('usman');
         //load library enkripsi password
         $this->load->library('safe');
         //useragent
@@ -18,7 +18,7 @@ class Login extends CI_Controller {
         if ($this->agent->browser() == 'Internet Explorer'){
             redirect("my404/blocked");
         }
-		if($this->admin->chksess()){
+		if($this->usman->chksess()){
 			//jika memang session sudah terdaftar, maka dialihkan ke halaman dahsboard
 			redirect("dashboard");
 		}else{
@@ -33,19 +33,19 @@ class Login extends CI_Controller {
                 $uname = $this->safe->inject($this->input->post("username", TRUE));
                 $ps = $this->safe->convert($this->safe->inject($this->input->post("password", TRUE)),$uname);
                 //checking data via model
-                $cek = $this->admin->chklog(array('username' => $uname), array('password' => $ps));
+                $cek = $this->usman->chklog(array('username' => $uname), array('password' => $ps));
                 //jika ditemukan, maka create session
     	        if ($cek != FALSE){
                     $date = date("Y-m-d H:i:s");
-                    $this->admin->lastlog(array('username' => $uname, 'password' => $ps), array('lastlog' => $date));
+                    $this->usman->lastlog(array('username' => $uname, 'password' => $ps), array('lastlog' => $date));
         	        foreach ($cek as $hit){
             	        $sesar = array(
-                            'user_name' => $hit->username,
-                            'user_pass' => $hit->password,
+                            'uname' => $hit->username,
+                            'upass' => $hit->password,
                             'jabat' => $hit->jabatan,
                             'who' => $hit->place,
-                        	'user_nama' => $hit->nama_user,
-                            'user_phone' => $hit->phone,
+                        	'namaus' => $hit->nama_user,
+                            'tlpus' => $hit->phone,
                             'level' => $hit->level,
                             'edit' => $hit->lastedit
                      	);

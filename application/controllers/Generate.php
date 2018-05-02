@@ -6,15 +6,15 @@ class Generate extends CI_Controller {
         parent::__construct();
         //load library validasi
         $this->load->library('form_validation');
-        //load model admin
-        $this->load->model('admin');
+        //load model usman
+        $this->load->model('usman');
         //load model kodegen
         $this->load->model('kodegen');
         //load model pagination
         $this->load->library('pagination');
     }
 	public function index(){
-		if($this->admin->chksess()){
+		if($this->usman->chksess()){
 			//jika login maka bisa masuk
 			if($this->session->userdata("level") == 0){
 				//jika level user 0 kesini
@@ -45,7 +45,7 @@ class Generate extends CI_Controller {
 				}
 			}else{
 				//Jika Bukan Hak Akses
-				$this->load->view("denied");
+				$this->load->view("errors/denied");
 			}
 		}else{
 			//jika session belum terdaftar, maka redirect ke halaman login

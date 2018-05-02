@@ -6,15 +6,15 @@ class Register extends CI_Controller {
         parent::__construct();
         //load library form validasi
         $this->load->library('form_validation');
-        //load model admin
-        $this->load->model('admin');
+        //load model usman
+        $this->load->model('usman');
         //load model register
         $this->load->model('regist');
         //load library enkripsi password
         $this->load->library('safe');
     }
 	public function index(){
-		if($this->admin->chksess()){
+		if($this->usman->chksess()){
 				//jika memang session sudah terdaftar, maka redirect ke halaman dahsboard
 				redirect("dashboard");
 		}else{

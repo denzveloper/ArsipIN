@@ -5,11 +5,11 @@ class Dashboard extends CI_Controller {
 
     public function __construct(){
         parent::__construct();
-        //load model admin
-        $this->load->model('admin');
+        //load model usman
+        $this->load->model('usman');
     }
 	public function index(){
-		if($this->admin->chksess()){
+		if($this->usman->chksess()){
 			//jika login kesini
 			$this->load->view("head");
 			//load header html
@@ -22,7 +22,7 @@ class Dashboard extends CI_Controller {
 	}
 	public function logout(){
 		//call logout function
-		$this->admin->logout();
+		$this->usman->logout();
 		redirect('login');
 	}
 }
