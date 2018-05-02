@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<link rel="shortcut icon" type="image/png" href="<?php echo base_url('style/img/root.png');?>"/>
 
 <div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
 

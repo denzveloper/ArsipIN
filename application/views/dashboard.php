@@ -1,4 +1,4 @@
-			    <h3 class="panel-title"><i class="fa fa-bullhorn"></i> Welcome Message</h3>
+			    <h3 class="panel-title"><i class="fas fa-bullhorn"></i> Welcome Message</h3>
 			  </div>
 			  <div class="panel-body">
 			    Selamat Datang <b><?php echo $this->session->userdata("user_nama"); ?></b> dihalaman Dashboard Aplikasi <b>ArsipIN</b>!

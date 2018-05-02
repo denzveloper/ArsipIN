@@ -1,4 +1,4 @@
-                <h3 class="panel-title"><i class="fa fa-drivers-license-o"></i> Edit User <b><?php echo $this->session->userdata('user_nama')?></b></h3>
+                <h3 class="panel-title"><i class="fa fa-drivers-license-o"></i> Edit User <b><?php echo $this->session->userdata('uname')?></b></h3>
               </div>
               <div class="panel-body">
                 <p><b>Last Edited: </b><i><span title="TTTT-BB-HH JJ:MM:DD"><?php echo $this->session->userdata('edit')?></span></i></p>
@@ -7,9 +7,9 @@
 			     <div class="form-group">
                     <div class="input-group">
                      <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                     <input type="text" class="form-control" name="username" placeholder="Nama Pengguna" autocomplete="off" value="<?php echo $this->session->userdata('user_name'); if($user_data != FALSE){foreach($user_data as $post){ ?>" disabled>
+                     <input type="text" class="form-control" name="username" placeholder="Nama Pengguna" autocomplete="off" value="<?php echo $this->session->userdata('uname');?>" disabled>
                     </div>
-                    <?php echo form_error('username'); ?>
+                    <?php echo form_error('username'); if($user_data != FALSE){foreach($user_data as $post){ ?>
                  </div>
                  <div class="form-group">
                     <div class="input-group">
@@ -42,7 +42,7 @@
                  </div>
                  <div class="form-group">
                     <div class="input-group">
-                     <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span><input type="password" name="password" id="pwd" class="form-control" placeholder="Kata Sandi" required autocomplete="off" value="<?php echo $this->safe->convert($post->password,$this->session->userdata('user_name')); } }else{}?>">
+                     <span class="input-group-addon"><i class="fa fa-unlock-alt"></i></span><input type="password" name="password" id="pwd" class="form-control" placeholder="Kata Sandi" required autocomplete="off" value="<?php echo $this->safe->convert($post->password,$this->session->userdata('uname'));?>">
                      <span class="input-group-addon" id="latar" title="Show Password" class="eff"><button id="show" type="button" style="background: transparent; border: 0;" class="eff"><i class="fa fa-eye"></i></button></span>
                     </div>
                     <?php echo form_error('password'); ?>
@@ -67,5 +67,6 @@
 <script type="text/javascript" src="<?php echo base_url('/style/css/js/bootstrap.min.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/style/js/passho.js');?>"></script>
 <script type="text/javascript" src="<?php echo base_url('/style/css/js/jquery.validate.min.js');?>"></script>
+<?php } }else{}?>
 </body>
 </html>

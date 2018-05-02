@@ -61,15 +61,15 @@
                 </br>
                 <?php if(isset($error)) { echo $error; }; ?>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" autocomplete="off">
+                    <input type="text" class="form-user form eff" name="username" placeholder="Nama Pengguna" required autocomplete="off">
                     <?php echo form_error('username'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="realname" placeholder="Nama Anda" autocomplete="off">
+                    <input type="text" class="form-user form eff" name="realname" placeholder="Nama Anda" required autocomplete="off">
                     <?php echo form_error('realname'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="jabat" placeholder="Jabatan Anda" autocomplete="off">
+                    <input type="text" class="form-user form eff" name="jabat" placeholder="Jabatan Anda" required autocomplete="off">
                     <?php echo form_error('jabat'); ?>
                 </div>
                 <div class="form-group">
@@ -81,7 +81,7 @@
                     <?php echo form_error('password'); ?>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-user form eff" name="whois" placeholder="Lembaga/Nama Desa" autocomplete="off">
+                    <input type="text" class="form-user form eff" name="whois" placeholder="Lembaga/Nama Desa" required autocomplete="off">
                     <?php echo form_error('whois'); ?>
                 </div>
                 <div class="form-group">

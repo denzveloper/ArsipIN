@@ -7,7 +7,11 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/fontawesome-all.css');?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/main.css');?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/styles.css');?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css');?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css');?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url('style/css/bootstrap-select.css');?>">
+  <style type="text/css">
+  *{-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-tap-highlight-color: transparent;}
+</style>
 </head>
 <body onpaste="return false;" oncopy="return false;">
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -39,7 +43,7 @@
               <a href="<?php echo base_url('index.php/data'); ?>" class="list-group-item"><i class="far fa-file"></i> Buat Data Laporan</a>
               <a href="<?php echo base_url('index.php/edit'); ?>" class="list-group-item"><i class="fas fa-edit"></i> Edit Data Laporan</a>
               <?php }elseif($this->session->userdata("level") == 0){ ?>
-              <a href="<?php echo base_url('index.php/showdata'); ?>" class="list-group-item"><i class="fas fa-file"></i> Lihat Data Laporan</a>
+              <a href="<?php echo base_url('index.php/data'); ?>" class="list-group-item"><i class="fas fa-file-alt"></i> Lihat Data Laporan</a>
               <a href="<?php echo base_url('index.php/chart'); ?>" class="list-group-item"><i class="fas fa-chart-pie"></i> Lihat Chart</a>
               <a href="<?php echo base_url('index.php/generate'); ?>" class="list-group-item"><i class="fas fa-qrcode"></i> Lihat Kode Verifikasi</a>
               <a href="<?php echo base_url('index.php/uman'); ?>" class="list-group-item"><i class="fas fa-users"></i> Manajer Pengguna</a>

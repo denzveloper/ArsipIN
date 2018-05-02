@@ -42,6 +42,7 @@
                         <img height="64px" src="<?php echo base_url('/style/img/polindra.png');?>" title="Politeknik Negeri Indramayu">
                         <img height="64px" src="<?php echo base_url('/style/img/denzveloper.png');?>" title="DENZVELOPER/DzEN">
                         <img height="64px" src="<?php echo base_url('/style/img/ci.svg');?>" title="CodeIgniter">
+                        <img height="64px" src="<?php echo base_url('/style/img/github.svg');?>" title="Github">
                         <img height="64px" src="<?php echo base_url('/style/img/goog.png');?>" title="Google">
                         <img height="64px" src="<?php echo base_url('/style/img/so.png');?>" title="StackOverflow">
                         <p>Dan Terimakasih juga Pihak lain yang telah mendukung juga membantu Perangkat Lunak Aplikasi <b>ArsipIN</b> ini.</p>

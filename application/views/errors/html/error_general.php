@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="shortcut icon" type="image/png" href="<?php echo base_url('style/img/root.png');?>"/>
 <meta charset="utf-8">
 <title>Error</title>
 <style type="text/css">
