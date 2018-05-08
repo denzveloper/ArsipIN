@@ -12,6 +12,7 @@ class Data extends CI_Controller {
         //load library safe
         $this->load->library('safe');
     }
+
     public function index(){
         if($this->usman->chksess()){
             //if login you can visits
@@ -36,6 +37,17 @@ class Data extends CI_Controller {
         }
     }
 
+    //Show recent and list data user send
+    public function udata(){
+        if ($this->session->userdata("level") == 0) {
+            //$us = $this->input->get("usr", TRUE);
+            //$data['list'] = $this->dataio->viewmin(array('username' => $us));
+            $this->load->view("head");
+            $this->load->view('login/data/listdatauser');
+        }
+    }
+
+    //Show Data
     public function show(){
         if ($this->usman->chksess()) {
             if($this->session->userdata("level") == 0){
@@ -61,6 +73,7 @@ class Data extends CI_Controller {
         }
     }
 
+    //input data
     public function action(){
         if($this->usman->chksess()){
             //if login you can visits

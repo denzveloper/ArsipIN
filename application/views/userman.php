@@ -11,12 +11,12 @@
                             <?php $i=0; if($user_data != FALSE){foreach($user_data as $post){ $i++;?>
                             <tr>
                                 <td><i><?php echo $i; ?></i></td>
-                                <td><?php echo $post->acccreate; ?></td>
+                                <td><?php echo date("d F Y", strtotime($post->acccreate)); ?></td>
                                 <td><b><i><?php echo $post->nama_user; ?></i></b></td>
                                 <td><?php echo $post->jabatan; ?></td>
                                 <td><?php echo $post->phone; ?></td>
                                 <td><?php echo $post->place; ?></td>
-                                <td><?php echo $post->lastlog; ?></td>
+                                <td><?php echo date("d F Y (H:i:s)", strtotime($post->lastlog)); ?></td>
                                 <td>
                                     <a href="<?php echo base_url('index.php/uman?reset='); echo $this->safe->convert($post->username,$this->session->userdata("uname")); ?>" data-toggle="tooltip" title="Reset Sandi manjadi '<?php echo $post->username; ?>'" onclick="return confirm('Reset Sandi <?php echo $post->nama_user; ?> menjadi <?php echo $post->username; ?>?')"><button class="btn btn-success btn-xs"><i class="fa fa-undo"></i> Reset Sandi</button></a>
                                     <a href="<?php echo base_url('index.php/uman?admin='); echo $this->safe->convert($post->username,$this->session->userdata("uname")); ?>" data-toggle="tooltip" title="Jadikan Admin: '<?php echo $post->username; ?>'" onclick="return confirm('Jadikan <?php echo $post->nama_user; ?> sebagai Admin?')"><button class="btn btn-warning btn-xs"><i class="fa fa-user-circle"></i> Jadi Tim Arsip</button></a>

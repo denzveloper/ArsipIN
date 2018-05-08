@@ -1,15 +1,15 @@
-			    <h3 class="panel-title"><i class="fas fa-file-alt"></i> Data Laporan</h3>
+			    <h3 class="panel-title"><i class="fas fa-file-alt"></i> Lihat Data Laporan</h3>
 			  </div>
 			  <div class="panel-body">
-			  	<h3>Daftar Data</h3>
-				<select class="selectpicker" data-live-search="true" data-style="btn-primary">
+			  	<h4>Daftar Data</h4>
+				<select class="selectpicker show-menu-arrow" data-live-search="true" title="Pilih Lembaga/Nama" data-size="5" data-width="auto" onchange="location = this.value;">
 					<optgroup label="Lembaga / Nama Pengguna">
 					<?php $i=0; if($list != FALSE){foreach($list as $lst){ $i++; ?>
-					  	<option value="<?php echo $lst->username;?>"><?php echo $lst->place."<b> / </b>".$lst->nama_user;?></option>
+					  	<option value="<?php echo base_url('index.php/data/udata?usr=').$lst->username;?>" data-subtext="(<?php echo $lst->nama_user;?>)"><?php echo $lst->place; ?></option>
 					<?php } } ?>
 				</select>
 				<hr>
-			  	<h3>Data Terbaru</h3>
+			  	<h4>Data Terbaru</h4>
 			  	<div class="table-responsive">
 				    <table class="table table-striped table-hover">
 				    	<thead>
@@ -29,7 +29,7 @@
 				    			<td><?php echo $i; ?></td>
 				    			<td><?php echo $this->dataio->getwho($lst->username)->place;?></td>
 				    			<td><?php echo $this->dataio->getwho($lst->username)->nama_user;?></td>
-				    			<td><?php echo $lst->date;?></td>
+				    			<td><?php echo date("d F Y (H:i)", strtotime($lst->date));?></td>
 				    			<td><?php echo $lst->tahun;?></td>
 				    			<td><?php if ($lst->dibaca==1) {
 				    						echo "<span style='color: #2ED1A2'><i class='fas fa-check-circle'></i> Sudah</span>";
