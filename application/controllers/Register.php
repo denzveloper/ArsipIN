@@ -44,14 +44,17 @@ class Register extends CI_Controller {
 	            $date = date("Y-m-d H:i:s");
 	            
 	            /*CHECKING MODE DO NOT DISTRUB*/
-	            //checking kode verifikasi via model
-	            $kodcek = $this->regist->checking('tbl_kode', array('kodever' => $kode));
-	            //checking data via model
+	            //checking data via model via model regist fungsi checking
 	            $checking0 = $this->regist->checking('tbl_users', array('username' => $username));
 	            $checking1 = $this->regist->checking('tbl_users', array('place' => $whois));
+	            /*CHECKING MODE DO NOT DISTRUB-END*/
 
 	            //jika tidak bentrok usernya maka lanjut
 	            if ($checking0 == FALSE && $checking1 == FALSE) {
+	            	/*CHECKING MODE DO NOT DISTRUB*/
+	            	//checking kode verifikasi via model regist fungsi checking
+	            	$kodcek = $this->regist->checking('tbl_kode', array('kodever' => $kode));
+	            	/*CHECKING MODE DO NOT DISTRUB-END*/
 	            	if($kodcek != FALSE) {
 		            	$buatdata = $this->regist->create_user(array('username' => $username, 'nama_user' => $realname, 'jabatan'=>$jabat, 'place'=> $whois, 'password' => $password, 'phone' => $phone, 'level' => 1, 'acccreate' => $date, 'lastedit' => $date));
 		            	//jika buat data berhasil ke laman login
@@ -73,7 +76,7 @@ class Register extends CI_Controller {
 	            	}
 	            }else{
 	            	$data['error'] = '<div class="alert alert-danger" style="margin-top: 3px">
-	                	<div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Gagal Regristasi Pengguna!</div></div>';
+	                	<div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Gagal Regristasi Pengguna!<br><sup>Nama Pengguna atau Lembaga/Desa telah terdaftar. Silahkan hubungi Administrator!</sup></div></div>';
 	            	$this->load->view('register', $data);
 	            }
 	        }else{

@@ -19,7 +19,7 @@ class Data extends CI_Controller {
             if($this->session->userdata("level") == 1){
                 //if level is 1 or Writer you are here
                 $this->load->view("head");
-                $this->load->view('datain');
+                $this->load->view('login/data/isi');
             }elseif ($this->session->userdata("level") == 0) {
                 //if level is 0 or ArsipAris you are here
                 $data['list'] = $this->dataio->getlistuser();
@@ -39,11 +39,48 @@ class Data extends CI_Controller {
 
     //Show recent and list data user send
     public function udata(){
-        if ($this->session->userdata("level") == 0) {
-            //$us = $this->input->get("usr", TRUE);
-            //$data['list'] = $this->dataio->viewmin(array('username' => $us));
-            $this->load->view("head");
-            $this->load->view('login/data/listdatauser');
+        if ($this->usman->chksess()) {
+            if ($this->session->userdata("level") == 0) {
+                //$us = $this->input->get("usr", TRUE);
+                //$data['list'] = $this->dataio->viewmin(array('username' => $us));
+                $this->load->view("head");
+                $this->load->view('login/data/listdatauser');
+            }else{
+                //Jika Bukan Hak Akses
+                $this->load->view("errors/denied");
+            }
+        }else{
+            //Not LoggedIn
+            redirect("login");
+        }
+    }
+
+    public function del(){
+        if ($this->usman->chksess()) {
+            if ($this->session->userdata("level") == 0) {
+                $namae = $this->session->userdata('namaus');
+                $by = $this->safe->inject($this->safe->convert($this->input->get("usr", TRUE),$namae));
+                $when = $this->safe->inject($this->input->get("dat", TRUE));
+                $checking = $this->dataio->del_data(array('username' => $by, 'date' => $when));
+                if ($checking != FALSE){
+                    //Perintah OK
+                    $data['error'] = '<div class="alert alert-success" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> Sukses</b> Data sudah dihapus!<br><i>Sekarang pengguna dapat mengisi kembali dengan data baru.</i></div></div>';
+                }else{
+                    //Perintah ERR
+                    $data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Data Tidak dapat menghapus!<br><i>Kesalahan terjadi mungkin karena gangguan sistem atau masalah lainnya.</i></div></div>';
+                }
+                $data['list'] = $this->dataio->getlistuser();
+                $data['new'] = $this->dataio->getnewdata();
+                $this->load->view("head");
+                $this->load->view('login/data/datashow',$data);
+                //redirect("data");
+            }else{
+                //Jika Bukan Hak Akses
+                $this->load->view("errors/denied");
+            }
+        }else{
+            //Not LoggedIn
+            redirect("login");
         }
     }
 
@@ -58,11 +95,36 @@ class Data extends CI_Controller {
                 //$by = $this->safe->inject($this->input->get("usr", TRUE));
                 $when = $this->safe->inject($this->input->get("dat", TRUE));
                 $data['doc'] = $this->dataio->viewdata(array('username' => $by, 'date' => $when));
-                if ($data['doc']!=FALSE) {
-                    $this->dataio->makejr(array('username' => $by, 'date' => $when));
-                }
                 $this->load->view("head");
                 $this->load->view('login/data/show',$data);
+            }else{
+                //Jika Bukan Hak Akses
+                $this->load->view("errors/denied");
+            }
+        }else{
+            //Not LoggedIn
+            redirect("login");
+        }
+    }
+
+    //HTML to PDF
+    public function print(){
+        if ($this->usman->chksess()) {
+            if($this->session->userdata("level") == 0){
+                //get require data
+                $namae = $this->session->userdata('namaus');
+                $by = $this->safe->inject($this->safe->convert($this->input->get("usr", TRUE),$namae));
+                //$when = $this->safe->inject($this->safe->convert($this->input->get("dat", TRUE),$namae));
+                //$by = $this->safe->inject($this->input->get("usr", TRUE));
+                $when = $this->safe->inject($this->input->get("dat", TRUE));
+                $data["dok"] = $this->dataio->viewdata(array('username' => $by, 'date' => $when));
+                $data["doki"] = $this->dataio->viewdata(array('username' => $by, 'date' => $when));
+                //Get Detail Files
+                if($data['dok']!=FALSE){
+                    $this->dataio->makejr(array('username' => $by, 'date' => $when));
+                }                
+                $this->load->view("login/data/cetak",$data);
+
             }else{
                 //Jika Bukan Hak Akses
                 $this->load->view("errors/denied");
@@ -82,84 +144,89 @@ class Data extends CI_Controller {
                 if(isset($something)){
                     //if button is pressed
                     //Data: berisi tentang id data
-                    $d = $this->session->userdata("user_name");
+                    $d = $this->session->userdata("uname");
                     $dd = date("Y-m-d H:i:s");
+                    $yea = date("Y");
                     //data: d_ar_aktif
-                    $a1 = $this->input->post("k_no_srt_pk_kd_kls", TRUE);
-                    $b1 = $this->input->post("k_pk_nk_ag", TRUE);
-                    $c1 = $this->input->post("k_sim_ar_fol", TRUE);
-                    $d1 = $this->input->post("k_sim_ar_bin", TRUE);
-                    $e1 = $this->input->post("k_sim_ar_box", TRUE);
-                    $f1 = $this->input->post("k_sim_ar_cab", TRUE);
-                    $g1 = $this->input->post("k_tata_arsip", TRUE);
-                    $h1 = $this->input->post("m_pk_agenda", TRUE);
-                    $i1 = $this->input->post("m_pk_lmbr_dispo", TRUE);
-                    $j1 = $this->input->post("m_sim_ar_fol", TRUE);
-                    $k1 = $this->input->post("m_sim_ar_bin", TRUE);
-                    $l1 = $this->input->post("m_sim_ar_box", TRUE);
-                    $m1 = $this->input->post("m_sim_ar_cab", TRUE);
-                    $n1 = $this->input->post("m_tata_arsip", TRUE);
-                    $o1 = $this->input->post("sk_olah_arsip", TRUE);
-                    $p1 = $this->input->post("arsip_thn_sblm", TRUE);
+                    $a1 = $this->input->post("a1", TRUE);
+                    $b1 = $this->input->post("b1", TRUE);
+                    $c1 = $this->input->post("c1", TRUE);
+                    $d1 = $this->input->post("d1", TRUE);
+                    $e1 = $this->input->post("e1", TRUE);
+                    $f1 = $this->input->post("f1", TRUE);
+                    $g1 = $this->input->post("g1", TRUE);
+                    $h1 = $this->input->post("h1", TRUE);
+                    $i1 = $this->input->post("i1", TRUE);
+                    $j1 = $this->input->post("j1", TRUE);
+                    $k1 = $this->input->post("k1", TRUE);
+                    $l1 = $this->input->post("l1", TRUE);
+                    $m1 = $this->input->post("m1", TRUE);
+                    $n1 = $this->input->post("n1", TRUE);
+                    $o1 = $this->input->post("o1", TRUE);
                     //data: d_ar_in
-                    $a2 = $this->input->post("tahun", TRUE);
-                    $b2 = $this->input->post("sim_ar_fol", TRUE);
-                    $c2 = $this->input->post("sim_ar_box", TRUE);
-                    $d2 = $this->input->post("sim_ar_gdng", TRUE);
-                    $e2 = $this->input->post("sim_ar_lemari", TRUE);
+                    $a2 = $this->input->post("a2", TRUE);
+                    $b2 = $this->input->post("b2", TRUE);
+                    $c2 = $this->input->post("c2", TRUE);
+                    $d2 = $this->input->post("d2", TRUE);
+                    $e2 = $this->input->post("e2", TRUE);
+                    $f2 = $this->input->post("f2", TRUE);
                     //data: Hasil
-                    $a3 = $this->input->post("hsl_temu", TRUE);
-                    $b3 = $this->input->post("tgl_wkt", TRUE);
+                    $a3 = $this->input->post("a3", TRUE);
                     //data: d_ar_statis
-                    $a4 = $this->input->post("ar_tanah", TRUE);
-                    $b4 = $this->input->post("ar_apbdes", TRUE);
-                    $c4 = $this->input->post("ar_kuang", TRUE);
-                    $d4 = $this->input->post("ar_kpdn", TRUE);
-                    $e4 = $this->input->post("fto_mntn_kuwu", TRUE);
-                    $f4 = $this->input->post("sjrh_desa", TRUE);
-                    $g4 = $this->input->post("ar_pilwu", TRUE);
-                    $h4 = $this->input->post("pta_desa", TRUE);
-                    $i4 = $this->input->post("ar_kep_skpmng", TRUE);
-                    $j4 = $this->input->post("ar_kep_ijazah", TRUE);
-                    $k4 = $this->input->post("ar_kep_akta", TRUE);
-                    $l4 = $this->input->post("ar_kep_kk", TRUE);
-                    $m4 = $this->input->post("ar_kep_bknkh", TRUE);
-                    $n4 = $this->input->post("ar_kep_ktp", TRUE);
+                    $a4 = $this->input->post("a4", TRUE);
+                    $b4 = $this->input->post("b4", TRUE);
+                    $c4 = $this->input->post("c4", TRUE);
+                    $d4 = $this->input->post("d4", TRUE);
+                    $e4 = $this->input->post("e4", TRUE);
+                    $f4 = $this->input->post("f4", TRUE);
+                    $g4 = $this->input->post("g4", TRUE);
+                    $h4 = $this->input->post("h4", TRUE);
+                    $i4 = $this->input->post("i4", TRUE);
+                    $j4 = $this->input->post("j4", TRUE);
+                    $k4 = $this->input->post("k4", TRUE);
+                    $l4 = $this->input->post("l4", TRUE);
+                    $m4 = $this->input->post("m4", TRUE);
+                    $n4 = $this->input->post("n4", TRUE);
                     //data: d_adat
-                    $a5 = $this->input->post("mpg_sri", TRUE);
-                    $b5 = $this->input->post("sdkh_bumi", TRUE);
-                    $c5 = $this->input->post("ngnjng_bar", TRUE);
-                    $d5 = $this->input->post("seni_daerah", TRUE);
+                    $a5 = $this->input->post("a5", TRUE);
+                    $b5 = $this->input->post("b5", TRUE);
+                    $c5 = $this->input->post("c5", TRUE);
+                    $d5 = $this->input->post("d5", TRUE);
                     //data: d_arna_ar
-                    $a6 = $this->input->post("s_box_ar", TRUE);
-                    $b6 = $this->input->post("s_fol_map", TRUE);
-                    $c6 = $this->input->post("s_skat", TRUE);
-                    $d6 = $this->input->post("s_label", TRUE);
-                    $e6 = $this->input->post("s_fill_cab", TRUE);
+                    $a6 = $this->input->post("a6", TRUE);
+                    $b6 = $this->input->post("b6", TRUE);
+                    $c6 = $this->input->post("c6", TRUE);
+                    $d6 = $this->input->post("d6", TRUE);
+                    $e6 = $this->input->post("e6", TRUE);
                     //data: d_kesimpulan
-                    $a7 = $this->input->post("sdm_krg_mmdai", TRUE);
-                    $b7 = $this->input->post("blm_phm_atrn", TRUE);
-                    $c7 = $this->input->post("bts_sarana", TRUE);
-
-                    $checking = $this->dataman->datain('tbl_data', array(
-                        'user'=>$d, 'date'=>$dd,
-                        'k_no_srt_pk_kd_kls'=>$a1, 'k_pk_nk_ag'=>$b1, 'k_sim_ar_fol'=>$c1, 'k_sim_ar_bin'=>$d1, 'k_sim_ar_box'=>$e1, 'k_sim_ar_cab'=>$f1, 'k_tata_arsip'=>$g1, 'm_pk_agenda'=>$h1, 'm_pk_lmbr_dispo'=>$i1, 'm_sim_ar_fol'=>$j1, 'm_sim_ar_bin'=>$k1, 'm_sim_ar_box'=>$l1, 'm_sim_ar_cab'=>$m1, 'm_tata_arsip'=>$n1, 'sk_olah_arsip'=>$o1, 'arsip_thn_sblm'=>$p1,
-                        'tahun'=>$a2, 'sim_ar_fol'=>$b2, 'sim_ar_box'=>$c2, 'sim_ar_gdng'=>$d2, 'sim_ar_lemari'=>$e2,
-                        'hsl_temu'=>$a3, 'tgl_wkt'=>$b3,
-                        'ar_tanah'=>$a4, 'ar_apbdes'=>$b4, 'ar_kuang'=>$c3, 'ar_kpdn'=>$d4, 'fto_mntn_kuwu'=>$e4, 'sjrh_desa'=>$f4, 'ar_pilwu'=>$g4, 'pta_desa'=>$h4, 'ar_kep_skpmng'=>$i4, 'ar_kep_ijazah'=>$j4, 'ar_kep_akta'=>$k4, 'ar_kep_kk'=>$l4, 'ar_kep_bknkh'=>$m4, 'ar_kep_ktp'=>$n4,
-                        'mpg_sri'=>$a5, 'sdkh_bumi'=>$b5, 'ngnjng_bar'=>$c5, 'seni_daerah'=>$d5,
-                        's_box_ar'=>$a6, 's_fol_map'=>$b6, 's_skat'=>$c6, 's_label'=>$d6, 's_fill_cab'=>$e6,
-                        'sdm_krg_mmdai'=>$a7, 'blm_phm_atrn'=>$b7, 'bts_sarana'=>$c7
-                    ));
-                    if ($checking != FALSE){
-                        //Perintah OK
-                        $data['error'] = '<div class="alert alert-success" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> Sukses</b> User telah diperbarui!<br><i>Silahkan Login Kembali</i></div></div>';
-                    }else{
+                    $a7 = $this->input->post("a7", TRUE);
+                    $b7 = $this->input->post("b7", TRUE);
+                    $c7 = $this->input->post("c7", TRUE);
+                    
+                    if($this->dataio->chk('tbl_data', array('year'=>date("Y"), 'username'=>$this->session->userdata("uname")))){
                         //Perintah ERR
-                        $data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Data Tidak dapat diubah!</div></div>';
+                        $data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Data Tahun ini sudah dikirimkan!<br></div></div>';
+                    }else{
+                        $checking = $this->dataio->datain('tbl_data', array(
+                            'username'=>$d, 'date'=>$dd, 'year'=>$yea,
+                            'k_no_srt_pk_kd_kls'=>$a1, 'k_pk_nk_ag'=>$b1, 'k_sim_ar_fol'=>$c1, 'k_sim_ar_bin'=>$d1, 'k_sim_ar_box'=>$e1, 'k_sim_ar_cab'=>$f1, 'k_tata_arsip'=>$g1, 'm_pk_agenda'=>$h1, 'm_pk_lmbr_dispo'=>$i1, 'm_sim_ar_fol'=>$j1, 'm_sim_ar_bin'=>$k1, 'm_sim_ar_box'=>$l1, 'm_sim_ar_cab'=>$m1, 'm_tata_arsip'=>$n1, 'sk_olah_arsip'=>$o1,
+                            'arsip_thn_sblm'=>$a2, 'tahun'=>$b2, 'sim_ar_fol'=>$c2, 'sim_ar_box'=>$d2, 'sim_ar_gdng'=>$e2, 'sim_ar_lemari'=>$f2,
+                            'hsl_temu'=>$a3,
+                            'ar_tanah'=>$a4, 'ar_apbdes'=>$b4, 'ar_kuang'=>$c4, 'ar_kpdn'=>$d4, 'fto_mntn_kuwu'=>$e4, 'sjrh_desa'=>$f4, 'ar_pilwu'=>$g4, 'pta_desa'=>$h4, 'ar_kep_skpmng'=>$i4, 'ar_kep_ijazah'=>$j4, 'ar_kep_akta'=>$k4, 'ar_kep_kk'=>$l4, 'ar_kep_bknkh'=>$m4, 'ar_kep_ktp'=>$n4,
+                            'mpg_sri'=>$a5, 'sdkh_bumi'=>$b5, 'ngnjng_bar'=>$c5, 'seni_daerah'=>$d5,
+                            's_box_ar'=>$a6, 's_fol_map'=>$b6, 's_skat'=>$c6, 's_label'=>$d6, 's_fill_cab'=>$e6,
+                            'sdm_krg_mmdai'=>$a7, 'blm_phm_atrn'=>$b7, 'bts_sarana'=>$c7
+                        ));
+                        if ($checking != FALSE){
+                            //Perintah OK
+                            $data['error'] = '<div class="alert alert-success" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> Sukses</b> Data sudah dikirim!<br><i>Ada bisa mengedit dokumen ini dimenu "Edit Data Laporan" sebelum dokumen dicetak.</i></div></div>';
+                        }else{
+                            //Perintah ERR
+                            $data['error'] = '<div class="alert alert-danger" style="margin-top: 3px"><div class="header"><b><i class="fa fa-exclamation-circle"></i> ERROR</b> Data Tidak dapat dikirimkan!<br><i>Kesalahan terjadi mungkin karena data tidak lengkap atau masalah lainnya.</i></div></div>';
+                        }
                     }
                     $this->load->view("head");
-                    $this->load->view('data', $data);
+                    $this->load->view('login/data/isi', $data);
                 }else{
                     redirect("data");
                 }
