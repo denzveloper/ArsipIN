@@ -1,7 +1,7 @@
 			    <h3 class="panel-title"><i class="fas fa-bullhorn"></i> Welcome Message</h3>
 			  </div>
 			  <div class="panel-body">
-			    Selamat Datang <b><?php echo $this->session->userdata("user_nama"); ?></b> dihalaman Dashboard Aplikasi <b>ArsipIN</b>!
+			    Selamat Datang <b><?php echo $this->session->userdata("namaus"); ?></b> dihalaman Dashboard Aplikasi <b>ArsipIN</b>!
 			  </div>
 			</div>
 		</div>

@@ -1,7 +1,7 @@
                 <h3 class="panel-title"><i class="fa fa-drivers-license-o"></i> Edit User <b><?php echo $this->session->userdata('uname')?></b></h3>
               </div>
               <div class="panel-body">
-                <p><b>Last Edited: </b><i><span title="TTTT-BB-HH JJ:MM:DD"><?php echo $this->session->userdata('edit')?></span></i></p>
+                <p><b>Last Edited: </b><i><?php echo date("D, d F Y (H:i)", strtotime($this->session->userdata('edit')));?></i></p>
                 <?php if(isset($error)) { echo $error; }; ?>
 			  	<form method="POST" action="<?php echo base_url('index.php/edituser') ?>">
 			     <div class="form-group">
